@@ -1,0 +1,45 @@
+# Build output
+bin/
+obj/
+
+# VS Code
+.vscode/
+*.user
+
+# Rider / Visual Studio
+.idea/
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+
+# dotnet
+*.swp
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+nuget.config
+
+# Logs
+*.log
+
+*.dll
+bin/Debug/net10.0-windows/MPP_Client.dll
+bin/Debug/net10.0-windows/MPP_Client.exe
+bin/Debug/net10.0-windows/MPP_Client.pdb
+obj/Debug/net10.0-windows/MPP_Client.AssemblyInfoInputs.cache
+obj/Debug/net10.0-windows/MPP_Client.csproj.CoreCompileInputs.cache
+obj/Debug/net10.0-windows/MPP_Client.csproj.FileListAbsolute.txt
+obj/Debug/net10.0-windows/MPP_Client.dll
+obj/Debug/net10.0-windows/MPP_Client.pdb
+obj/Debug/net10.0-windows/ref/MPP_Client.dll
+obj/Debug/net10.0-windows/refint/MPP_Client.dll

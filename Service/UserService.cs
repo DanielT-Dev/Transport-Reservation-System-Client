@@ -7,7 +7,12 @@ namespace MPP_Client.Service
 {
     public class UserService : IService<User, int>
     {
-        private readonly UserDAO _dao = new UserDAO();
+        private readonly UserDAO _dao;
+
+        public UserService(UserDAO userDAO)
+        {
+            this._dao = userDAO;
+        }
 
         public User GetById(int id)
         {

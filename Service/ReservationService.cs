@@ -11,6 +11,12 @@ namespace MPP_Client.Service
         private readonly ReservationDAO _dao        = new ReservationDAO();
         private readonly RaceDAO        _raceDao    = new RaceDAO();
 
+        public ReservationService(ReservationDAO reservationDAO, RaceDAO raceDAO)
+        {
+            this._dao = reservationDAO;
+            this._raceDao = raceDAO;
+        }
+
         public Reservation GetById(int id)
         {
             if (id <= 0) throw new ArgumentException("Id must be positive.");

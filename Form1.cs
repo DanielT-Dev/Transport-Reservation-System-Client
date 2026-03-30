@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using MPP_Client.Service;
 
 namespace MPP_Client
 {
@@ -130,9 +131,11 @@ namespace MPP_Client
             string email    = txtEmail.Text.Trim();
             string password = txtPassword.Text;
 
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            UserService userService = new UserService(new Repository.UserDAO());
+
+            if (userService.FindByEmailAndPassword(email, password) == null)
             {
-                MessageBox.Show("Please fill in all fields.", "Validation",
+                MessageBox.Show("Email or password is incorrect", "Validation",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }

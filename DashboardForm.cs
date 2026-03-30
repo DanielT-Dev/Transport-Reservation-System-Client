@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using MPP_Client.Models;
 using MPP_Client.Service;
+using MPP_Client.Repository;
 
 namespace MPP_Client
 {
@@ -11,9 +12,13 @@ namespace MPP_Client
     {
         private readonly string _userEmail;
 
-        private readonly UserService        _userService        = new UserService();
-        private readonly RaceService        _raceService        = new RaceService();
-        private readonly ReservationService _reservationService = new ReservationService();
+        private static RaceDAO _raceDAO = new RaceDAO();
+        private static ReservationDAO _reservationDAO = new ReservationDAO();
+        private static UserDAO _userDAO = new UserDAO();
+        private readonly RaceService        _raceService        = new RaceService(_raceDAO);
+        private readonly ReservationService _reservationService = new ReservationService(_reservationDAO, _raceDAO);
+        private readonly UserService        _userService        = new UserService(_userDAO);
+
 
         private DataGridView _usersGrid;
         private DataGridView _racesGrid;
@@ -70,8 +75,8 @@ namespace MPP_Client
 
             var btnRefresh = new Button
             {
-                Text     = "↻  Refresh",
-                Location = new Point(topBar.Width - 200, 12),
+                Text     = "↻ Refresh",
+                Location = new Point(topBar.Width - 400, 12),
                 Width    = 90,
                 Height   = 32,
                 Anchor   = AnchorStyles.Top | AnchorStyles.Right
@@ -79,7 +84,25 @@ namespace MPP_Client
             UIStyles.ApplyPrimaryButton(btnRefresh);
             btnRefresh.Click += (s, e) => LoadAllData();
 
-            topBar.Controls.AddRange(new Control[] { lblAppName, lblUser, btnRefresh });
+
+            var btnManageReservations = new Button
+            {
+                Text     = "Manage-Reservations",
+                Location = new Point(topBar.Width - 620, 12),
+                Width    = 170,
+                Height   = 32,
+                Anchor   = AnchorStyles.Top | AnchorStyles.Right
+            };
+            UIStyles.ApplyPrimaryButton(btnManageReservations);
+            btnManageReservations.BackColor = Color.FromArgb(14, 116, 144); // teal
+            btnManageReservations.FlatAppearance.MouseOverBackColor = Color.FromArgb(12, 90, 110);
+            btnManageReservations.Click += (s, e) =>
+            {
+                var form = new ManageReservationsForm();
+                form.Show();
+            };
+
+            topBar.Controls.AddRange(new Control[] { lblAppName, lblUser, btnManageReservations, btnRefresh });
 
             // ── Scrollable content area ────────────────────────────────
             var scroll = new Panel

@@ -1,15 +1,25 @@
 using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Logging;
 
 namespace MPP_Client.Repository
 {
     public static class DatabaseHelper
     {
-        // Update this path to point to your Java app's .db file
-        private const string DbPath = "Data Source=C:/Users/danie/Desktop/UBB/SEMESTRUL 4/PROGRAMMING ENVIRONMENTS/Repo/JavaGradleServer/mydatabase.db";
+        private static readonly ILogger _logger =
+        LoggerManager.LoggerFactory.CreateLogger("DatabaseHelper");
+
+        private static readonly string _connectionString;
+
+        static DatabaseHelper()
+        {
+            _connectionString = "your-connection-string-here";
+            _logger.LogInformation("DatabaseHelper initialized");
+        }
 
         public static SqliteConnection GetConnection()
         {
-            return new SqliteConnection(DbPath);
+            _logger.LogInformation("Opening SQLite connection");
+            return new SqliteConnection(_connectionString);
         }
     }
 }

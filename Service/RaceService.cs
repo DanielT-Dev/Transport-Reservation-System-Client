@@ -8,7 +8,12 @@ namespace MPP_Client.Service
 {
     public class RaceService : IService<Race, int>
     {
-        private readonly RaceDAO _dao = new RaceDAO();
+        private readonly RaceDAO _dao;
+
+        public RaceService(RaceDAO raceDAO)
+        {
+            this._dao = raceDAO;
+        }
 
         public Race GetById(int id)
         {
